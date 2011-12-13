@@ -1,0 +1,42 @@
+application: Algae-CMS
+version: 1
+runtime: python
+api_version: 1
+
+handlers:
+- url: /favicon\.ico
+  static_files: favicon.ico
+  upload: favicon\.ico
+  
+- url: /stylesheets
+  static_dir: stylesheets
+  
+- url: /javascript
+  static_dir: javascript
+
+- url: /editContent
+  script: editContent.py
+  
+- url: /login
+  script: login.py
+  
+- url: /logout
+  script: logout.py
+
+- url: /pages/.*
+  script: pages.py
+
+- url: /posts/.*
+  script: posts.py
+  
+- url: /css/.*
+  script: css.py
+
+- url: /js/.*
+  script: js.py
+
+- url: /admin
+  script: admin.py
+
+- url: .*
+  script: main.py
