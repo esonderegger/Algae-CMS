@@ -4,7 +4,7 @@
 
 from google.appengine.ext import db
 import cgi
-import myHtmlBlocks
+import algaeHtmlBlocks
 import algaePython
 import algaeUserConfig
 
@@ -15,12 +15,12 @@ def printBody():
 	print '</body>'
 
 def printMainDiv():
-	myHtmlBlocks.titleBlock()
-	myHtmlBlocks.displayNav()
+	algaeHtmlBlocks.titleBlock()
+	algaeHtmlBlocks.displayNav()
 	print '<div id="thePosts" class="normalContent">'
 	form = cgi.FieldStorage()
 	pageNum = int(form.getfirst("page", 0))
-	myHtmlBlocks.getPostsContent(algaeUserConfig.postsPerPage, pageNum*algaeUserConfig.postsPerPage)
+	algaeHtmlBlocks.getPostsContent(algaeUserConfig.postsPerPage, pageNum*algaeUserConfig.postsPerPage)
 	print "</div>"
 	postsCount = algaePython.getPostsCount()
 	if postsCount > 2 or pageNum > 0:
@@ -35,6 +35,6 @@ def printMainDiv():
 
 print '<!DOCTYPE html>'
 print '<html lang="en">'
-myHtmlBlocks.commonHeader()
+algaeHtmlBlocks.commonHeader()
 printBody()
 print '</html>'

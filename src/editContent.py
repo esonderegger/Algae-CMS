@@ -39,7 +39,7 @@ if contentType == "blogPost" or contentType == "basicPage":
 	thePost.author = thiscookie['username'].value
 	theTitle = form.getfirst("postTitle", "Untitled").decode( 'utf-8', 'ignore')
 	thePost.postTitle = theTitle
-	url = re.sub(r' ', "_", theTitle)
+	url = re.sub(r'[- ]', "_", theTitle)
 	url = re.sub(r'\W', "", url)
 	url = re.sub(r'_+', "-", url)
 	if url != thePost.cleanURL:

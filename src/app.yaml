@@ -1,4 +1,4 @@
-application: Algae-CMS
+application: algaecms
 version: 1
 runtime: python
 api_version: 1

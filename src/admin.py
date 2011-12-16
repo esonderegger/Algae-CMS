@@ -85,7 +85,7 @@ def newPostForm():
 	print '<p class="textDescriptor">Link (optional): </p><input type="text" name="linkURL" class="adminString" />'
 	print '<textarea name="postText" class="adminText"></textarea>'
 	print '<p class="textDescriptor">Published: </p><input type="checkbox" name="isPublished"/>'
-	print "<input type='submit' value='Save' class='submitButton'/>"
+	print "<div class='theButtons'><input type='submit' value='Save' class='submitButton'/></div>"
 	print "</form>"
 	print "</div>"
 
@@ -129,7 +129,7 @@ def newPageForm():
 	print '<p class="textDescriptor">Title (required): </p><input type="text" name="postTitle" class="adminString" />'
 	print '<textarea name="postText" class="adminText"></textarea>'
 	print '<p class="textDescriptor">Published: </p><input type="checkbox" name="isPublished"/>'
-	print "<input type='submit' value='Save' class='submitButton'/>"
+	print "<div class='theButtons'><input type='submit' value='Save' class='submitButton'/></div>"
 	print "</form>"
 	print "</div>"
 
@@ -150,7 +150,8 @@ def existingPageForm(ID):
 		print '<p class="textDescriptor">Published: </p><input type="checkbox" name="isPublished" checked/>'
 	else:
 		print '<p class="textDescriptor">Published: </p><input type="checkbox" name="isPublished"/>'
-	print "<input type='submit' value='Save' class='submitButton'/>"
+	print "<div class='theButtons'><input type='submit' value='Save' class='submitButton'/>"
+	print '<a href="/editContent?contentType=delete&amp;cType=basicPage&amp;postID=' + ID + '" class="deleteButton">Delete</a></div>'
 	print "</form>"
 	print "</div>"
 
@@ -205,7 +206,7 @@ def navForm(ID = ""):
 		print '<p class="textDescriptor">Title (required): </p><input type="text" name="postTitle" class="adminString" />'
 		print '<p class="textDescriptor">Link (required): </p><input type="text" name="theLink" class="adminString" />'
 		print '<p class="textDescriptor">Alt Text (optional): </p><input type="text" name="altText" class="adminString" />'
-	print "<input type='submit' value='Save' class='submitButton'/>"
+	print "<div class='theButtons'><input type='submit' value='Save' class='submitButton'/></div>"
 	print "</form>"
 
 def usersSection():
@@ -245,7 +246,7 @@ def userForm(ID = ""):
 		print '<option value="author">Author</option>'
 		print '<option value="designer">Designer</option>'
 		print '</select>'
-	print "<input type='submit' value='Save' class='submitButton'/>"
+	print "<div class='theButtons'><input type='submit' value='Save' class='submitButton'/></div>"
 	print "</form>"
 
 def cssSection():
@@ -275,7 +276,7 @@ def newDesignForm(cType):
 	print '<p class="textDescriptor">Title (required): </p><input type="text" name="postTitle" class="adminString" />'
 	print '<textarea name="postText" class="adminText"></textarea>'
 	print '<p class="textDescriptor">Published: </p><input type="checkbox" name="isPublished"/>'
-	print "<input type='submit' value='Save' class='submitButton'/>"
+	print "<div class='theButtons'><input type='submit' value='Save' class='submitButton'/></div>"
 	print "</form>"
 	print "</div>"
 
@@ -302,7 +303,8 @@ def existingDesignForm(ID, cType):
 		print '<p class="textDescriptor">Published: </p><input type="checkbox" name="isPublished" checked/>'
 	else:
 		print '<p class="textDescriptor">Published: </p><input type="checkbox" name="isPublished"/>'
-	print "<input type='submit' value='Save' class='submitButton'/>"
+	print "<div class='theButtons'><input type='submit' value='Save' class='submitButton'/>"
+	print '<a href="/editContent?contentType=delete&amp;cType=' + cType + '&amp;postID=' + ID + '" class="deleteButton">Delete</a></div>'
 	print "</form>"
 	print "</div>"
 
