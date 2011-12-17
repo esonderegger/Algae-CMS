@@ -10,6 +10,9 @@ thePage = algaeModels.getContentFromCleanURL(postRequested, 'jScript')
 
 if thePage:
   print thePage.postText
+elif os.path.exists('./js/' + postRequested):
+  file = open('./js/' + postRequested, 'r')
+  print file.read()
 else:
   print '<!DOCTYPE html>'
   print '<html lang="en">'

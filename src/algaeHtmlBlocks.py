@@ -8,12 +8,21 @@ import algaeUserConfig
 
 def cssLinks():
   cssQuery = db.GqlQuery("SELECT * FROM styleSheet WHERE isPublished = True ORDER BY postTime DESC")
-  sheets = postsQuery.fetch(100)
+  sheets = cssQuery.fetch(100)
   if len(sheets) > 0:
     for sheet in sheets:
       print '<link href="/css/' + sheet.cleanURL + '" rel="stylesheet" />'
   else:
-    print '<link href="/stylesheets/main.css" rel="stylesheet" />'
+    print '<link href="/css/main.css" rel="stylesheet" />'
+
+def jsLinks():
+  jsQuery = db.GqlQuery("SELECT * FROM jScript WHERE isPublished = True ORDER BY postTime DESC")
+  scripts = jsQuery.fetch(100)
+  if len(scripts) > 0:
+    for script in scripts:
+      print '<script src="/js/' + script.cleanURL + '"></script>'
+  else:
+    print '<script src="/js/starter.js"></script>'
 
 def commonHeader(title=""):
 	print '<head>'
@@ -24,7 +33,7 @@ def commonHeader(title=""):
 	cssLinks()
 	print '<link href="http://fonts.googleapis.com/css?family=Convergence" rel="stylesheet">'
 	print "<link href='http://fonts.googleapis.com/css?family=Inconsolata' rel='stylesheet'>"
-	print '<script src="/javascript/starter.js"></script>'
+	jsLinks()
 	print '</head>'
 
 def titleBlock(byline=""):

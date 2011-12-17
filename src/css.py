@@ -10,6 +10,9 @@ thePage = algaeModels.getContentFromCleanURL(postRequested, 'styleSheet')
 
 if thePage:
   print thePage.postText
+elif os.path.exists('./css/' + postRequested):
+  file = open('./css/' + postRequested, 'r')
+  print file.read()
 else:
   print '<!DOCTYPE html>'
   print '<html lang="en">'

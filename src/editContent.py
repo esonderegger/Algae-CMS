@@ -151,9 +151,9 @@ elif contentType == 'delete':
 		elif cType == 'navLink':
 			theContent = algaeModels.navLink.get(postID)
 		elif cType == 'styleSheet':
-			theContent = algaeModels.siteUser.get(postID)
+			theContent = algaeModels.styleSheet.get(postID)
 		elif cType == 'jScript':
-			theContent = algaeModels.basicPage.get(postID)
+			theContent = algaeModels.jScript.get(postID)
 		if theContent:
 			theContent.delete()
 	print "Location: admin?deleted=yes&edit=" + cType

@@ -168,3 +168,27 @@ def getContentFromCleanURL(url, postType):
         return object
     else:
         return False
+
+def createCssFromFile():
+  cssQuery = db.GqlQuery("SELECT * FROM styleSheet")
+  cssCount = cssQuery.count()
+  if cssCount < 1:
+    mainCSS = styleSheet()
+    mainCSS.postTitle = 'main'
+    mainCSS.cleanURL = 'main'
+    mainCSS.isPublished = True
+    cssFile = open('./css/main.css', 'r')
+    mainCSS.postText = db.Text(cssFile.read(), encoding="utf-8")
+    mainCSS.put()
+
+def createJsFromFile():
+  jsQuery = db.GqlQuery("SELECT * FROM jScript")
+  jsCount = jsQuery.count()
+  if jsCount < 1:
+    mainJS = jScript()
+    mainJS.postTitle = 'starter'
+    mainJS.cleanURL = 'starter'
+    mainJS.isPublished = True
+    jsFile = open('./js/starter.js', 'r')
+    mainJS.postText = db.Text(jsFile.read(), encoding="utf-8")
+    mainJS.put()

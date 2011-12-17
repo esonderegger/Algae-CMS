@@ -7,12 +7,6 @@ handlers:
 - url: /favicon\.ico
   static_files: favicon.ico
   upload: favicon\.ico
-  
-- url: /stylesheets
-  static_dir: stylesheets
-  
-- url: /javascript
-  static_dir: javascript
 
 - url: /editContent
   script: editContent.py

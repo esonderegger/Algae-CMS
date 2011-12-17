@@ -45,7 +45,7 @@ def printLoginForm():
 	print "<form action='login' method='POST'>"
 	print '<p class="textDescriptor">username: </p><input type="text" name="userName" class="adminString" />'
 	print '<p class="textDescriptor">password: </p><input type="password" name="password" class="adminString" />'
-	print "<input type='submit' value='Log In' class='submitButton' />"
+	print "<div class='theButtons'><input type='submit' value='Log In' class='submitButton' /></div>"
 	print "</form>"
 	print "</div>"
 
@@ -272,15 +272,19 @@ def jsSection():
 	print '</div>'
 
 def newDesignForm(cType):
-	print "<div id='" + cType + "Form' class='adminEditor'>"
-	print "<form action='editContent' method='POST'>"
-	print "<input type='hidden' name='contentType' value='" + cType + "' />"
-	print '<p class="textDescriptor">Title (required): </p><input type="text" name="postTitle" class="adminString" />'
-	print '<textarea name="postText" class="adminText"></textarea>'
-	print '<p class="textDescriptor">Published: </p><input type="checkbox" name="isPublished"/>'
-	print "<div class='theButtons'><input type='submit' value='Save' class='submitButton'/></div>"
-	print "</form>"
-	print "</div>"
+  if cType == 'styleSheet':
+    algaeModels.createCssFromFile()
+  else:
+    algaeModels.createJsFromFile()
+  print "<div id='" + cType + "Form' class='adminEditor'>"
+  print "<form action='editContent' method='POST'>"
+  print "<input type='hidden' name='contentType' value='" + cType + "' />"
+  print '<p class="textDescriptor">Title (required): </p><input type="text" name="postTitle" class="adminString" />'
+  print '<textarea name="postText" class="adminText"></textarea>'
+  print '<p class="textDescriptor">Published: </p><input type="checkbox" name="isPublished"/>'
+  print "<div class='theButtons'><input type='submit' value='Save' class='submitButton'/></div>"
+  print "</form>"
+  print "</div>"
 
 def existingDesignForm(ID, cType):
 	if cType == 'styleSheet':
