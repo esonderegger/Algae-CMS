@@ -194,20 +194,22 @@ def navSection():
   print "</div>"
 
 def navForm(ID = ""):
-	print "<form action='editContent' method='POST'>"
-	print "<input type='hidden' name='contentType' value='navLink' />"
-	if ID != "":
-		print "<input type='hidden' name='postID' value='" + ID +"' />"
-		nav = algaeModels.navLink.get(ID)
-		print '<p class="textDescriptor">Title (required): </p><input type="text" name="postTitle" class="adminString" value="' + cgi.escape(nav.postTitle.encode('utf-8'), True) + '" />'
-		print '<p class="textDescriptor">Link (required): </p><input type="text" name="theLink" class="adminString" value="' + cgi.escape(nav.theLink.encode('utf-8'), True) + '" />'
-		print '<p class="textDescriptor">Alt Text (optional): </p><input type="text" name="altText" class="adminString" value="' + cgi.escape(nav.altText.encode('utf-8'), True) + '" />'
-	else:
-		print '<p class="textDescriptor">Title (required): </p><input type="text" name="postTitle" class="adminString" />'
-		print '<p class="textDescriptor">Link (required): </p><input type="text" name="theLink" class="adminString" />'
-		print '<p class="textDescriptor">Alt Text (optional): </p><input type="text" name="altText" class="adminString" />'
-	print "<div class='theButtons'><input type='submit' value='Save' class='submitButton'/></div>"
-	print "</form>"
+  print "<form action='editContent' method='POST'>"
+  print "<input type='hidden' name='contentType' value='navLink' />"
+  if ID != "":
+    print "<input type='hidden' name='postID' value='" + ID +"' />"
+    nav = algaeModels.navLink.get(ID)
+    print '<p class="textDescriptor">Title (required): </p><input type="text" name="postTitle" class="adminString" value="' + cgi.escape(nav.postTitle.encode('utf-8'), True) + '" />'
+    print '<p class="textDescriptor">Link (required): </p><input type="text" name="theLink" class="adminString" value="' + cgi.escape(nav.theLink.encode('utf-8'), True) + '" />'
+    print '<p class="textDescriptor">Alt Text (optional): </p><input type="text" name="altText" class="adminString" value="' + cgi.escape(nav.altText.encode('utf-8'), True) + '" />'
+    print "<div class='theButtons'><input type='submit' value='Save' class='submitButton'/>"
+    print '<a href="/editContent?contentType=delete&amp;cType=navLink&amp;postID=' + ID + '" class="deleteButton">Delete</a></div>'
+  else:
+    print '<p class="textDescriptor">Title (required): </p><input type="text" name="postTitle" class="adminString" />'
+    print '<p class="textDescriptor">Link (required): </p><input type="text" name="theLink" class="adminString" />'
+    print '<p class="textDescriptor">Alt Text (optional): </p><input type="text" name="altText" class="adminString" />'
+    print "<div class='theButtons'><input type='submit' value='Save' class='submitButton'/></div>"
+  print "</form>"
 
 def usersSection():
 	print '<div id="adminContent">'
@@ -290,9 +292,9 @@ def existingDesignForm(ID, cType):
 	saved = form.getfirst("saved", "no")
 	if saved == "yes" and post.isPublished:
 		if cType == 'styleSheet':
-			print '<p class="editorAlert">Page saved. <a href="/css/' + post.cleanURL + '">view</a></p>'
+			print '<p class="editorAlert">Style Sheet saved. <a href="/css/' + post.cleanURL + '">view</a></p>'
 		else:
-			print '<p class="editorAlert">Page saved. <a href="/js/' + post.cleanURL + '">view</a></p>'
+			print '<p class="editorAlert">Javascript saved. <a href="/js/' + post.cleanURL + '">view</a></p>'
 	elif saved == "yes":
 		print '<p class="editorAlert">Page saved.</p>'
 	print "<input type='hidden' name='contentType' value='" + cType + "' />"

@@ -6,13 +6,22 @@ from google.appengine.ext import db
 import algaeModels
 import algaeUserConfig
 
+def cssLinks():
+  cssQuery = db.GqlQuery("SELECT * FROM styleSheet WHERE isPublished = True ORDER BY postTime DESC")
+  sheets = postsQuery.fetch(100)
+  if len(sheets) > 0:
+    for sheet in sheets:
+      print '<link href="/css/' + sheet.cleanURL + '" rel="stylesheet" />'
+  else:
+    print '<link href="/stylesheets/main.css" rel="stylesheet" />'
+
 def commonHeader(title=""):
 	print '<head>'
 	print '<meta charset="utf-8" />'
 	if title == "":
 		title = algaeUserConfig.siteTitle
 	print '<title>' + title + '</title>'
-	print '<link href="/stylesheets/main.css" rel="stylesheet" />'
+	cssLinks()
 	print '<link href="http://fonts.googleapis.com/css?family=Convergence" rel="stylesheet">'
 	print "<link href='http://fonts.googleapis.com/css?family=Inconsolata' rel='stylesheet'>"
 	print '<script src="/javascript/starter.js"></script>'
