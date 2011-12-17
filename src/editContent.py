@@ -13,18 +13,7 @@ import algaeModels
 import algaePython
 import algaeUserConfig
 
-form = cgi.FieldStorage()
-contentType = form["contentType"].value
-
-thiscookie = Cookie.SimpleCookie()
-cookie_string = os.environ.get('HTTP_COOKIE')
-if not cookie_string:
-	print "Location: admin?bad=cookie"
-	print 'Content-Type: text/html\n'
-else:
-	thiscookie.load(cookie_string)
-
-if contentType == "blogPost" or contentType == "basicPage":
+def editPostOrPage(contentType, form, thiscookie):
 	postID = form.getfirst("postID", "none")
 	if contentType == "blogPost":
 		if postID == "none":
@@ -60,7 +49,8 @@ if contentType == "blogPost" or contentType == "basicPage":
 	else:
 		print "Location: admin?saved=yes&edit=basicPage&key=" + str(thePost.key())
 	print 'Content-Type: text/html\n'
-elif contentType == 'navLink':
+
+def editNavLink(form):
   postID = form.getfirst("postID", "none")
   if postID == "none":
     theNav = algaeModels.navLink()
@@ -74,7 +64,8 @@ elif contentType == 'navLink':
   theNav.put()
   print "Location: admin?saved=yes&edit=navLink"
   print 'Content-Type: text/html\n'
-elif contentType == 'navOrder':
+
+def editNavOrder(form):
   postID = form.getfirst("key", "none")
   if postID != "none":
     theNav = algaeModels.navLink.get(postID)
@@ -95,7 +86,8 @@ elif contentType == 'navOrder':
     	otherNav.put()
   print "Location: admin?saved=yes&edit=navLink"
   print 'Content-Type: text/html\n'
-elif contentType == 'siteUser':
+
+def editSiteUser(form):
   postID = form.getfirst("postID", "none")
   if postID == "none":
     theUser = algaeModels.siteUser()
@@ -109,7 +101,8 @@ elif contentType == 'siteUser':
   theUser.put()
   print "Location: admin?saved=yes&edit=siteUser"
   print 'Content-Type: text/html\n'
-elif contentType == "styleSheet" or contentType == "jScript":
+
+def editCssOrJs(contentType, form):
 	postID = form.getfirst("postID", "none")
 	if contentType == "styleSheet":
 		if postID == "none":
@@ -140,7 +133,8 @@ elif contentType == "styleSheet" or contentType == "jScript":
 	else:
 		print "Location: admin?saved=yes&edit=jScript&key=" + str(thePost.key())
 	print 'Content-Type: text/html\n'
-elif contentType == 'delete':
+
+def deleteContent(form):
 	postID = form.getfirst("postID", "none")
 	cType = form.getfirst("cType", "none")
 	if postID != "none" and cType != "none":
@@ -158,6 +152,30 @@ elif contentType == 'delete':
 			theContent.delete()
 	print "Location: admin?deleted=yes&edit=" + cType
 	print 'Content-Type: text/html\n'
+
+form = cgi.FieldStorage()
+contentType = form["contentType"].value
+
+thiscookie = Cookie.SimpleCookie()
+cookie_string = os.environ.get('HTTP_COOKIE')
+if not cookie_string:
+	print "Location: admin?bad=cookie"
+	print 'Content-Type: text/html\n'
+else:
+	thiscookie.load(cookie_string)
+
+if contentType == "blogPost" or contentType == "basicPage":
+  editPostOrPage(contentType, form, thiscookie)
+elif contentType == 'navLink':
+  editNavLink(form)
+elif contentType == 'navOrder':
+  editNavOrder(form)
+elif contentType == 'siteUser':
+  editSiteUser(form)
+elif contentType == "styleSheet" or contentType == "jScript":
+  editCssOrJs(contentType, form)
+elif contentType == 'delete':
+  deleteContent(form)
 else:
 	print "Location: admin"
 	print 'Content-Type: text/html\n'
