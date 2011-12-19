@@ -151,9 +151,9 @@ def editImage(form):
   thePost.cleanURL = url
   theImage = form.getfirst("img", "")
   thePost.imgData = db.Blob(theImage)
-  smImage = images.resize(theImage, 32, 32)
+  smImage = images.resize(theImage, algaeUserConfig.smallImageSize, algaeUserConfig.smallImageSize)
   thePost.smData = db.Blob(smImage)
-  mdImage = images.resize(theImage, 200, 200)
+  mdImage = images.resize(theImage, algaeUserConfig.mediumImageSize, algaeUserConfig.mediumImageSize)
   thePost.mdData = db.Blob(mdImage)
   if form.getfirst("isPublished", "False") == "on":
     thePost.isPublished = True

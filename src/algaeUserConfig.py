@@ -12,6 +12,9 @@ rootEmail = 'admin@youremail.com'
 
 passSalt = 'Mortons'
 
+smallImageSize = 80
+mediumImageSize = 600
+
 # uncomment the timezone you want the server to use.
 # if not listed here, look through pytz.common_timezones
 
