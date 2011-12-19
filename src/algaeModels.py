@@ -161,6 +161,21 @@ class jScript(db.Model):
 	def __str__(self):
 		return self.postTitle
 
+class algaeImage(db.Model):
+	postTime = db.DateTimeProperty(auto_now_add=True)
+	postTitle = db.StringProperty()
+	imgData = db.BlobProperty()
+	smData = db.BlobProperty()
+	mdData = db.BlobProperty()
+	cleanURL = db.StringProperty()
+	isPublished = db.BooleanProperty()
+
+	def __repr__(self):
+		return self.postTitle
+
+	def __str__(self):
+		return self.postTitle
+
 def getContentFromCleanURL(url, postType):
     query = db.GqlQuery("SELECT * FROM " + postType + " WHERE cleanURL = '" + url + "'")
     object = query.get()

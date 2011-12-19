@@ -29,6 +29,9 @@ handlers:
 - url: /js/.*
   script: js.py
 
+- url: /images/.*
+  script: images.py
+
 - url: /admin
   script: admin.py
 

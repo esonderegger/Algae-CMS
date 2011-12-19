@@ -163,9 +163,17 @@ def allLinksOfType(contentType, orderBy='postTime DESC'):
 	print "</div>"
 
 def imagesSection():
-	print "<section id='allPosts' class='normalContent'>"
-	print "<p>all images will go here</p>"
-	print "</section>"
+	print "<div id='adminContent'>"
+	print "<div id='userForm' class='adminEditor'>"
+	print '<form action="editContent" enctype="multipart/form-data" method="post">'
+	print "<input type='hidden' name='contentType' value='image' />"
+	print '<p class="textDescriptor">Title (required): </p><input type="text" name="postTitle" class="adminString" />'
+	print '<div><p class="textDescriptor">Image: </p><input type="file" name="img"/></div>'
+	print '<p class="textDescriptor">Published: </p><input type="checkbox" name="isPublished" checked/>'
+	print '<div class="theButtons"><input type="submit" value="Upload" class="submitButton"/></div>'
+	print '</form>'
+	print '</div>'
+	print "</div>"
 
 def navSection():
   editID = form.getfirst("key", "")

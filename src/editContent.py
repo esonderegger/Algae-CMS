@@ -3,6 +3,7 @@
 # License: MIT (http://www.opensource.org/licenses/mit-license.php)
 
 from google.appengine.ext import db
+from google.appengine.api import images
 import cgi
 import Cookie
 import hashlib
@@ -134,6 +135,34 @@ def editCssOrJs(contentType, form):
 		print "Location: admin?saved=yes&edit=jScript&key=" + str(thePost.key())
 	print 'Content-Type: text/html\n'
 
+def editImage(form):
+  postID = form.getfirst("postID", "none")
+  if postID == "none":
+    thePost = algaeModels.algaeImage()
+  else:
+    thePost = algaeModels.algaeImage.get(postID)
+  theTitle = form.getfirst("postTitle", "Untitled").decode( 'utf-8', 'ignore')
+  thePost.postTitle = theTitle
+  url = re.sub(r' ', "_", theTitle)
+  url = re.sub(r'\W', "", url)
+  url = re.sub(r'_+', "-", url)
+  if url != thePost.cleanURL:
+    url = algaePython.noDupeURL(url, 'algaeImage')
+  thePost.cleanURL = url
+  theImage = form.getfirst("img", "")
+  thePost.imgData = db.Blob(theImage)
+  smImage = images.resize(theImage, 32, 32)
+  thePost.smData = db.Blob(smImage)
+  mdImage = images.resize(theImage, 200, 200)
+  thePost.mdData = db.Blob(mdImage)
+  if form.getfirst("isPublished", "False") == "on":
+    thePost.isPublished = True
+  else:
+    thePost.isPublished = False
+  thePost.put()
+  print "Location: admin?saved=yes&edit=image&key=" + str(thePost.key())
+  print 'Content-Type: text/html\n'
+
 def deleteContent(form):
 	postID = form.getfirst("postID", "none")
 	cType = form.getfirst("cType", "none")
@@ -166,6 +195,8 @@ else:
 
 if contentType == "blogPost" or contentType == "basicPage":
   editPostOrPage(contentType, form, thiscookie)
+elif contentType == 'image':
+  editImage(form)
 elif contentType == 'navLink':
   editNavLink(form)
 elif contentType == 'navOrder':
