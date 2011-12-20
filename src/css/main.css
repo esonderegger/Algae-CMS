@@ -13,6 +13,11 @@ a:hover {
 p {
  margin: 8px 0px;
 }
+img {
+  float: right;
+  margin: 5px 5px 15px 15px;
+  box-shadow: 2px 5px 10px #222;
+}
 #pageHeader {
   height: 110px;
   background-color: #555;

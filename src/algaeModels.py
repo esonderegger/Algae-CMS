@@ -164,10 +164,14 @@ class jScript(db.Model):
 class algaeImage(db.Model):
 	postTime = db.DateTimeProperty(auto_now_add=True)
 	postTitle = db.StringProperty()
+	postCaption = db.StringProperty()
 	imgData = db.BlobProperty()
 	smData = db.BlobProperty()
 	mdData = db.BlobProperty()
+	lgData = db.BlobProperty()
 	cleanURL = db.StringProperty()
+	mimeType = db.StringProperty()
+	fileName = db.StringProperty()
 	isPublished = db.BooleanProperty()
 
 	def __repr__(self):
@@ -175,6 +179,27 @@ class algaeImage(db.Model):
 
 	def __str__(self):
 		return self.postTitle
+	
+	def fileExt(self):
+	  return self.fileName[self.fileName.rfind('.'):]
+
+class dataFile(db.Model):
+	postTime = db.DateTimeProperty(auto_now_add=True)
+	postTitle = db.StringProperty()
+	blobData = db.BlobProperty()
+	cleanURL = db.StringProperty()
+	mimeType = db.StringProperty()
+	fileName = db.StringProperty()
+	isPublished = db.BooleanProperty()
+
+	def __repr__(self):
+		return self.postTitle
+
+	def __str__(self):
+		return self.postTitle
+	
+	def fileExt(self):
+	  return self.fileName[self.fileName.rfind('.'):]
 
 def getContentFromCleanURL(url, postType):
     query = db.GqlQuery("SELECT * FROM " + postType + " WHERE cleanURL = '" + url + "'")

@@ -19,13 +19,13 @@ else:
 theImage = algaeModels.getContentFromCleanURL(imageRequested, 'algaeImage')
 
 if theImage:
+  print 'Content-Type: ' + theImage.mimeType + '\n'
   if versionRequested == 'sm':
     print theImage.smData
   elif versionRequested == 'md':
     print theImage.mdData
   else:
     print theImage.imgData
-  print 'Content-Type: image/png\n'
 else:
   print '<!DOCTYPE html>'
   print '<html lang="en">'

@@ -163,7 +163,20 @@ def allLinksOfType(contentType, orderBy='postTime DESC'):
 	print "</div>"
 
 def imagesSection():
-	print "<div id='adminContent'>"
+  print "<div id='adminContent'>"
+  newImageForm()
+  imagesLinks()
+  print "</div>"
+
+def imagesLinks():
+  print "<div id='editorLinks' class='adminLinks'>"
+  keysAndTitles = algaePython.keysAndTitles('algaeImage', 'postTime DESC')
+  for keyAndTitle in keysAndTitles:
+    theImage = algaeModels.algaeImage.get(keyAndTitle[0])
+    print '<a href="admin?edit=image&amp;key=' + str(keyAndTitle[0]) + '"><img src="/images/' + theImage.cleanURL + '_sm' + theImage.fileExt() + '" alt="' + theImage.postTitle + '"/></a>'
+  print "</div>"
+
+def newImageForm():
 	print "<div id='userForm' class='adminEditor'>"
 	print '<form action="editContent" enctype="multipart/form-data" method="post">'
 	print "<input type='hidden' name='contentType' value='image' />"
@@ -173,7 +186,7 @@ def imagesSection():
 	print '<div class="theButtons"><input type="submit" value="Upload" class="submitButton"/></div>'
 	print '</form>'
 	print '</div>'
-	print "</div>"
+	
 
 def navSection():
   editID = form.getfirst("key", "")
@@ -338,6 +351,7 @@ def adminNav():
 
 form = cgi.FieldStorage()
 
+print 'Content-Type: text/html\n'
 print '<!DOCTYPE html>'
 print '<html lang="en">'
 algaeHtmlBlocks.commonHeader(algaeUserConfig.siteTitle.encode('utf-8') + " Admin Page")

@@ -7,6 +7,7 @@ from google.appengine.api import images
 import cgi
 import Cookie
 import hashlib
+import mimetypes
 import os
 import re
 import markdown2
@@ -155,6 +156,10 @@ def editImage(form):
   thePost.smData = db.Blob(smImage)
   mdImage = images.resize(theImage, algaeUserConfig.mediumImageSize, algaeUserConfig.mediumImageSize)
   thePost.mdData = db.Blob(mdImage)
+  lgImage = images.resize(theImage, algaeUserConfig.largeImageSize, algaeUserConfig.largeImageSize)
+  thePost.lgData = db.Blob(lgImage)
+  thePost.mimeType = form['img'].type
+  thePost.fileName = form['img'].filename
   if form.getfirst("isPublished", "False") == "on":
     thePost.isPublished = True
   else:

@@ -9,10 +9,9 @@ import algaePython
 import algaeUserConfig
 
 def printBody():
-	#print '<body onload="getPosts(2)">'
-	print '<body>'
-	printMainDiv()
-	print '</body>'
+  print '<body>'
+  printMainDiv()
+  print '</body>'
 
 def printMainDiv():
 	algaeHtmlBlocks.titleBlock()
