@@ -3,17 +3,33 @@
 # License: MIT (http://www.opensource.org/licenses/mit-license.php)
 
 from google.appengine.ext import db
+import re
 import algaeModels
 import algaeUserConfig
+
+def getFontsFromCss(someText):
+  fontMatches = re.findall('font-family: *?[\'"].*?[\'"]', someText)
+  fontList = []
+  for match in fontMatches:
+    fontName = re.findall('(?<=[\'"]).*?(?=[\'"])', match)[0]
+    if fontName not in fontList:
+      fontList.append(fontName)
+  return fontList
 
 def cssLinks():
   cssQuery = db.GqlQuery("SELECT * FROM styleSheet WHERE isPublished = True ORDER BY postTime DESC")
   sheets = cssQuery.fetch(100)
+  fontList = []
   if len(sheets) > 0:
     for sheet in sheets:
       print '<link href="/css/' + sheet.cleanURL + '" rel="stylesheet" />'
+      for font in getFontsFromCss(sheet.postText):
+        fontList.append(font)
   else:
     print '<link href="/css/main.css" rel="stylesheet" />'
+    for font in getFontsFromCss(open('./css/main.css', 'r').read()):
+      fontList.append(font)
+  return fontList
 
 def jsLinks():
   jsQuery = db.GqlQuery("SELECT * FROM jScript WHERE isPublished = True ORDER BY postTime DESC")
@@ -30,9 +46,9 @@ def commonHeader(title=""):
 	if title == "":
 		title = algaeUserConfig.siteTitle
 	print '<title>' + title + '</title>'
-	cssLinks()
-	print '<link href="http://fonts.googleapis.com/css?family=Convergence" rel="stylesheet">'
-	print "<link href='http://fonts.googleapis.com/css?family=Inconsolata' rel='stylesheet'>"
+	fontList = cssLinks()
+	for font in fontList:
+	  print '<link href="http://fonts.googleapis.com/css?family=' + font + '" rel="stylesheet">'
 	jsLinks()
 	print '</head>'
 

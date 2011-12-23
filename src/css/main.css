@@ -1,5 +1,7 @@
 body {
-  font-family: 'Convergence', sans-serif;
+  font-family: 'Oswald', serif;
+  font-size: 16px;
+  line-height: 24px;
   background-color: #DDDDDD;
   margin: 0px;
 }
@@ -121,7 +123,7 @@ nav a:hover {
   font-size: 14px;
 }
 .adminString {
-  font-family: 'Convergence', sans-serif;
+  font-family: 'Oswald', sans-serif;
   width: 388px;
   height: 20px;
   padding: 5px;
@@ -135,7 +137,7 @@ nav a:hover {
   padding: 10px;
   margin-right: 30px;
   background-color: #aaa;
-  font-family: 'Convergence', sans-serif;
+  font-family: 'Oswald', sans-serif;
   font-size: 18px;
   color: #222;
   text-shadow: 0px 1px 2px white;
