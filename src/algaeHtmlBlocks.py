@@ -23,12 +23,14 @@ def cssLinks():
   if len(sheets) > 0:
     for sheet in sheets:
       print '<link href="/css/' + sheet.cleanURL + '" rel="stylesheet" />'
-      for font in getFontsFromCss(sheet.postText):
-        fontList.append(font)
+      for fontName in getFontsFromCss(sheet.postText):
+        if fontName not in fontList:
+          fontList.append(fontName)
   else:
     print '<link href="/css/main.css" rel="stylesheet" />'
-    for font in getFontsFromCss(open('./css/main.css', 'r').read()):
-      fontList.append(font)
+    for fontName in getFontsFromCss(open('./css/main.css', 'r').read()):
+      if fontName not in fontList:
+        fontList.append(fontName)
   return fontList
 
 def jsLinks():
@@ -48,7 +50,7 @@ def commonHeader(title=""):
 	print '<title>' + title + '</title>'
 	fontList = cssLinks()
 	for font in fontList:
-	  print '<link href="http://fonts.googleapis.com/css?family=' + font + '" rel="stylesheet">'
+	  print '<link href="http://fonts.googleapis.com/css?family=' + re.sub(r' ', "+", font) + '" rel="stylesheet">'
 	jsLinks()
 	print '</head>'
 
@@ -88,5 +90,5 @@ def displayNav():
       linkTitle = ' title="' + nav.altText.encode('utf-8') + '"'
     print '<li><a href="' + nav.theLink.encode('utf-8') + '"' + linkTitle +'>' + nav.postTitle.encode('utf-8') + '</a></li>'
   if len(navs) > 0:
-    print '</nav>'
     print '</ul>'
+    print '</nav>'

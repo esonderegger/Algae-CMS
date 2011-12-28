@@ -1,8 +1,9 @@
 body {
-  font-family: 'Oswald', serif;
-  font-size: 16px;
-  line-height: 24px;
+  font-family: 'Habibi', serif;
+  font-size: 14px;
+  line-height: 20px;
   background-color: #DDDDDD;
+  color: #333;
   margin: 0px;
 }
 a {
@@ -54,8 +55,13 @@ article header {
   margin: 8px 0px;
   color: #777;
 }
+article header a {
+  text-decoration: none;
+  color: #333;
+}
 article {
-  padding-bottom: 50px;
+  padding-top: 10px;
+  padding-bottom: 30px;
 }
 nav {
   background-color: #aaa;
@@ -74,7 +80,7 @@ nav li {
 nav a {
   padding: 10px;
   line-height: 41px;
-  font-size: 18px;
+  font-size: 16px;
   color: #222;
   text-shadow: 0px 1px 2px white;
   text-decoration: none;
@@ -87,6 +93,12 @@ nav a:hover {
   width: 600px;
   padding: 10px 100px;
   margin: 0px auto;
+}
+.firstLetter {
+  float: left;
+  font-size: 60px;
+  line-height: 60px;
+  padding-right: 6px;
 }
 #loginForm {
   width: 600px;
@@ -123,7 +135,7 @@ nav a:hover {
   font-size: 14px;
 }
 .adminString {
-  font-family: 'Oswald', sans-serif;
+  font-family: 'Habibi', serif;
   width: 388px;
   height: 20px;
   padding: 5px;
@@ -137,7 +149,7 @@ nav a:hover {
   padding: 10px;
   margin-right: 30px;
   background-color: #aaa;
-  font-family: 'Oswald', sans-serif;
+  font-family: 'Habibi', serif;
   font-size: 18px;
   color: #222;
   text-shadow: 0px 1px 2px white;
@@ -197,6 +209,28 @@ nav a:hover {
   padding: 5px;
   overflow: auto;
   float: right;
+}
+.imageEditLinks {
+  padding-left: 125px;
+}
+.imageEditLinks:after {
+  content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+.imageEditThumb {
+  height: 100px;
+  width: 100px;
+  text-align: center;
+  line-height: 100px;
+  float: left;
+}
+.imageEditThumb img{
+  float: none;
+  margin: 0px;
+  vertical-align: middle;
 }
 .textDescriptor {
   line-height: 20px;

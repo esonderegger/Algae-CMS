@@ -164,7 +164,11 @@ def allLinksOfType(contentType, orderBy='postTime DESC'):
 
 def imagesSection():
   print "<div id='adminContent'>"
-  newImageForm()
+  editID = form.getfirst("key", "")
+  if editID == "":
+    newImageForm()
+  else:
+    existingImageForm(editID)
   imagesLinks()
   print "</div>"
 
@@ -173,7 +177,9 @@ def imagesLinks():
   keysAndTitles = algaePython.keysAndTitles('algaeImage', 'postTime DESC')
   for keyAndTitle in keysAndTitles:
     theImage = algaeModels.algaeImage.get(keyAndTitle[0])
-    print '<a href="admin?edit=image&amp;key=' + str(keyAndTitle[0]) + '"><img src="/images/' + theImage.cleanURL + '_sm' + theImage.fileExt() + '" alt="' + theImage.postTitle + '"/></a>'
+    print '<div class="imageEditThumb">'
+    print '<a href="admin?edit=image&amp;key=' + str(keyAndTitle[0]) + '"><img src="/images/' + theImage.cleanURL + '_sm' + theImage.fileExt() + '" alt="' + theImage.postTitle + '" /></a>'
+    print "</div>"
   print "</div>"
 
 def newImageForm():
@@ -187,6 +193,28 @@ def newImageForm():
 	print '</form>'
 	print '</div>'
 	
+def existingImageForm(ID):
+  theImage = algaeModels.algaeImage.get(ID)
+  print "<div id='userForm' class='adminEditor'>"
+  print '<div class="imageEditLinks">'
+  print '<img src="/images/' + theImage.cleanURL + '_md' + theImage.fileExt() + '" alt="' + theImage.postTitle + '"/>'
+  print '<p>Links:</p>'
+  print '<p><a href="/images/'+ theImage.cleanURL + '_sm' + theImage.fileExt() + '">Small</a></p>'
+  print '<p><a href="/images/'+ theImage.cleanURL + '_md' + theImage.fileExt() + '">Medium</a></p>'
+  print '<p><a href="/images/'+ theImage.cleanURL + '_lg' + theImage.fileExt() + '">Large</a></p>'
+  print '<p><a href="/images/'+ theImage.cleanURL + theImage.fileExt() + '">Original</a></p>'
+  print '</div>'
+  print '<form action="editContent"enctype="multipart/form-data" method="post">'
+  print '<div class="imageEditForm">'
+  print "<input type='hidden' name='contentType' value='image' />"
+  print '<p class="textDescriptor">Title (required): </p><input type="text" name="postTitle" class="adminString" value="' + cgi.escape(theImage.postTitle.encode('utf-8'), True) + '" />'
+  print '<p class="textDescriptor">Published: </p><input type="checkbox" name="isPublished" checked/>'
+  print "<div class='theButtons'><input type='submit' value='Save' class='submitButton'/>"
+  print '<a href="/editContent?contentType=delete&amp;cType=image&amp;postID=' + ID + '" class="deleteButton">Delete</a></div>'
+  print '</div>'
+  print '</form>'
+  print '</div>'
+
 
 def navSection():
   editID = form.getfirst("key", "")

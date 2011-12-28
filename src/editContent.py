@@ -176,6 +176,8 @@ def deleteContent(form):
 			theContent = algaeModels.blogPost.get(postID)
 		elif cType == 'basicPage':
 			theContent = algaeModels.basicPage.get(postID)
+		elif cType == 'image':
+			theContent = algaeModels.algaeImage.get(postID)
 		elif cType == 'navLink':
 			theContent = algaeModels.navLink.get(postID)
 		elif cType == 'styleSheet':
