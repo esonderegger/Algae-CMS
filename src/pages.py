@@ -19,11 +19,11 @@ else:
 print '<body>'
 algaeHtmlBlocks.titleBlock()
 algaeHtmlBlocks.displayNav()
-print '<div id="thePost" class="normalContent">'
+print '<article class="normalContent">'
 if thePage:
   print thePage.markdownText.encode('utf-8')
 else:
   print '<h1>Content not found.</h1>'
-print '</div>'
+print '</article>'
 print '</body>'
 print '</html>'

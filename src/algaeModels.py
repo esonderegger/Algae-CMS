@@ -5,6 +5,7 @@
 from google.appengine.ext import db
 import cgi
 import datetime
+import re
 from pytz.gae import pytz
 import algaeUserConfig
 
@@ -83,6 +84,16 @@ class blogPost(db.Model):
     else:
       myDT += ' AM'
     return myDT
+  
+  def utcString(self):
+    siteTZ = pytz.timezone(algaeUserConfig.siteTimeZone)
+    localDT = self.postTime.replace(tzinfo=pytz.utc).astimezone(siteTZ)
+    myUTC = localDT.isoformat()
+    myUTCfixed = re.sub(r'\.\d+', "", myUTC)
+    return myUTCfixed
+  
+  def dateTimeTag(self):
+    return '<time datetime="' + self.utcString() + '" pubdate>' + self.dateTimeString() + '</time>'
 
   def printArticle(self, link=True):
     print '<article>'
@@ -91,13 +102,13 @@ class blogPost(db.Model):
     author = authorQuery.get()
     if self.linkURL != 'null':
       print '<h1><a href="' + cgi.escape(self.linkURL.encode('utf-8')) + '">' + cgi.escape(self.postTitle.encode('utf-8')) + '</a></h1>'
-      print "<p>posted by: " + cgi.escape(author.displayName.encode('utf-8')) + " on " + self.dateTimeString() + " " + '<a href="/posts/' + cgi.escape(self.cleanURL.encode('utf-8')) + '">&infin;</a>' + "</p>"
+      print "<p>posted by: " + cgi.escape(author.displayName.encode('utf-8')) + " on " + self.dateTimeTag() + " " + '<a href="/posts/' + cgi.escape(self.cleanURL.encode('utf-8')) + '">&infin;</a>' + "</p>"
     elif link:
       print '<h1><a href="/posts/' + cgi.escape(self.cleanURL.encode('utf-8')) + '">' + cgi.escape(self.postTitle.encode('utf-8')) + '</a></h1>'
-      print "<p>posted by: " + cgi.escape(author.displayName.encode('utf-8')) + " on " + self.dateTimeString() + " " + '<a href="/posts/' + cgi.escape(self.cleanURL.encode('utf-8')) + '">&infin;</a>' + "</p>"
+      print "<p>posted by: " + cgi.escape(author.displayName.encode('utf-8')) + " on " + self.dateTimeTag() + " " + '<a href="/posts/' + cgi.escape(self.cleanURL.encode('utf-8')) + '">&infin;</a>' + "</p>"
     else:
       print "<h1>" + cgi.escape(self.postTitle.encode('utf-8')) + "</h1>"
-      print "<p>posted by: " + cgi.escape(author.displayName.encode('utf-8')) + " on " + self.dateTimeString() + "</p>"
+      print "<p>posted by: " + cgi.escape(author.displayName.encode('utf-8')) + " on " + self.dateTimeTag() + "</p>"
     print '</header>'
     print self.markdownText.encode('utf-8')
     print '</article>'

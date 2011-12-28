@@ -89,6 +89,19 @@ nav a:hover {
   background-color: #888;
   color: #000;
 }
+blockquote {
+  color: #666;
+  border-left: 2px solid #bbb;
+  padding-left: 14px;
+  margin: 6px 12px;
+}
+pre {
+  color: #eee;
+  background-color: #111;
+  padding: 10px 20px;
+  margin: 10px 0px;
+  font-family: 'Inconsolata', monospace;
+}
 .normalContent {
   width: 600px;
   padding: 10px 100px;
@@ -131,7 +144,7 @@ nav a:hover {
   border: 1px solid #888;
   margin-left: 125px;
   margin-top: 8px;
-  font-family: 'Inconsolata', sans-serif;
+  font-family: 'Inconsolata', monospace;
   font-size: 14px;
 }
 .adminString {
