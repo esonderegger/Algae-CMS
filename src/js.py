@@ -9,9 +9,11 @@ postRequested = pathInfo[4:]
 thePage = algaeModels.getContentFromCleanURL(postRequested, 'jScript')
 
 if thePage:
+  print 'Content-Type: text/x-js \n'
   print thePage.postText
 elif os.path.exists('./js/' + postRequested):
   file = open('./js/' + postRequested, 'r')
+  print 'Content-Type: text/x-js \n'
   print file.read()
 else:
   print '<!DOCTYPE html>'

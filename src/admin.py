@@ -19,14 +19,12 @@ def printBody():
 def loggedIn():
 	thiscookie = Cookie.SimpleCookie()
 	cookie_string = os.environ.get('HTTP_COOKIE')
-	if not cookie_string:
-		return False
-	else:
+	if cookie_string:
 		thiscookie.load(cookie_string)
-		if algaePython.verifiedSession(thiscookie['username'].value, thiscookie['session'].value):
-			return True
-		else:
-			return False
+		if thiscookie.has_key('username') and thiscookie.has_key('session'):
+		  if algaePython.verifiedSession(thiscookie['username'].value, thiscookie['session'].value):
+			  return True
+	return False
 
 def printMainDiv():
 	algaeHtmlBlocks.titleBlock("Admin Page")

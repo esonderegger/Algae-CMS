@@ -10,6 +10,7 @@ pathInfo = os.environ.get('PATH_INFO')
 postRequested = pathInfo[7:]
 thePage = algaeModels.getContentFromCleanURL(postRequested, 'basicPage')
 
+print 'Content-Type: text/html \n'
 print '<!DOCTYPE html>'
 print '<html lang="en">'
 if thePage:

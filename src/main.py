@@ -22,7 +22,7 @@ def printMainDiv():
 	algaeHtmlBlocks.getPostsContent(algaeUserConfig.postsPerPage, pageNum*algaeUserConfig.postsPerPage)
 	print "</div>"
 	postsCount = algaePython.getPostsCount()
-	if postsCount > 2 or pageNum > 0:
+	if postsCount > algaeUserConfig.postsPerPage or pageNum > 0:
 		print "<div id='prevNextPage'>"
 		if pageNum > 1:
 			print '<div id="prevPage"><a href="/?page=' + str(pageNum - 1) + '">Previous Page</a></div>'
@@ -32,6 +32,7 @@ def printMainDiv():
 			print '<div id="nextPage"><a href="/?page=' + str(pageNum + 1) + '">Next Page</a></div>'
 		print "</div>"
 
+print 'Content-Type: text/html \n'
 print '<!DOCTYPE html>'
 print '<html lang="en">'
 algaeHtmlBlocks.commonHeader()
